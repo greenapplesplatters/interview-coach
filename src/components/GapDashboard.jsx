@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import demoData from '../data/demo-analysis.json';
 import './GapDashboard.css';
 
 const STATUS_META = {
@@ -23,7 +24,7 @@ const LABEL_META = {
 };
 
 export default function GapDashboard({ onExit }) {
-  const [state, setState] = useState('loading'); // loading | no-context | error | done
+  const [state, setState] = useState('loading'); // loading | demo | error | done
   const [data, setData] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
   const [openGap, setOpenGap] = useState(null);
@@ -39,12 +40,14 @@ export default function GapDashboard({ onExit }) {
         context = null;
       }
 
+      // No context — show demo report
       if (!context?.resume || !context?.jobDescription) {
-        setState('no-context');
+        setData(demoData);
+        setState('demo');
         return;
       }
 
-      // 2. Run analysis
+      // 2. Run real analysis
       try {
         const r = await fetch('/api/analyze', {
           method: 'POST',
@@ -71,20 +74,6 @@ export default function GapDashboard({ onExit }) {
           <div className="gap-spinner" />
           <p>Analyzing your fit&hellip;</p>
           <span>Comparing resume against job requirements</span>
-        </div>
-      </div>
-    );
-  }
-
-  // ── No context ───────────────────────────────────────────────────────────────
-  if (state === 'no-context') {
-    return (
-      <div className="gap-screen">
-        <div className="gap-empty">
-          <p className="gap-empty-icon">📄</p>
-          <h2>No context files loaded</h2>
-          <p>Add your resume and the job description to <code>context/</code> to run a skill gap analysis.</p>
-          <button className="gap-back-btn" onClick={onExit}>&larr; Back</button>
         </div>
       </div>
     );
@@ -126,6 +115,17 @@ export default function GapDashboard({ onExit }) {
       </div>
 
       <div className="gap-body">
+
+        {/* ── Demo banner ── */}
+        {state === 'demo' && (
+          <div className="gap-demo-banner">
+            <span className="gap-demo-pill">DEMO</span>
+            <p>
+              This is a sample analysis for a fictional candidate. To run a real analysis,{' '}
+              <strong>clone the repo, add your resume and job description to <code>context/</code>, and run <code>npm start</code></strong>.
+            </p>
+          </div>
+        )}
 
         {/* ── Hero: Match Score ── */}
         <div className="gap-hero">

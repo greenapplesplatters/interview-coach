@@ -149,6 +149,49 @@
   margin: 0;
 }
 
+/* ── Demo banner ───────────────────────────────────────────────────────────── */
+.gap-demo-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(251, 191, 36, 0.06);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.gap-demo-pill {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 6px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.gap-demo-banner p {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.gap-demo-banner strong {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 600;
+}
+
+.gap-demo-banner code {
+  font-family: 'Courier New', monospace;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.78rem;
+}
+
 /* ── Hero ──────────────────────────────────────────────────────────────────── */
 .gap-hero {
   background: rgba(168, 85, 247, 0.07);

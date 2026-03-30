@@ -106,11 +106,9 @@ export default function SetupScreen({ onStart, onAnalyze }) {
                   {context.resume ? '✓ Resume' : '⚠ No resume'}
                 </span>
               </div>
-              {context.jobDescription && context.resume && (
-                <button className="setup-analyze-btn" onClick={onAnalyze}>
-                  📊 Analyze my fit
-                </button>
-              )}
+              <button className="setup-analyze-btn" onClick={onAnalyze}>
+                📊 {context.jobDescription && context.resume ? 'Analyze my fit' : 'View demo analysis'}
+              </button>
             </div>
             {(!context.jobDescription || !context.resume) && (
               <p className="setup-context-hint">

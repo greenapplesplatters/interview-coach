@@ -1,0 +1,167 @@
+{
+  "verdict": "Strong technical overlap on the infrastructure side, but a meaningful gap in container orchestration depth will surface in the technical screen.",
+  "company_context": "Apex Systems is a mid-sized platform engineering shop where the Platform team owns the systems every other engineer builds on — deployment pipelines, internal tooling, developer experience, and reliability. The role exists because the company is scaling and needs someone who can reduce toil, improve delivery speed, and keep reliability high without a dedicated SRE org.",
+  "match_scores": {
+    "raw": "81%",
+    "weighted": "74%",
+    "label": "Good Fit",
+    "summary": "Raw score is inflated by broad AWS and tooling coverage — the weighted score drops because EKS and container orchestration carry heavy daily-work weight in this role and represent a genuine gap."
+  },
+  "matrix": [
+    {
+      "requirement": "Python (3–6 years)",
+      "category": "Core Technical",
+      "status": "Strong Match",
+      "notes": "Used Python throughout — Celery pipelines, FastAPI, internal CLI tooling with Click."
+    },
+    {
+      "requirement": "Go",
+      "category": "Core Technical",
+      "status": "Gap",
+      "notes": "No Go experience on record. JD lists it as preferred alongside Python."
+    },
+    {
+      "requirement": "AWS (ECS, Lambda, RDS, S3, CloudWatch)",
+      "category": "Core Technical",
+      "status": "Strong Match",
+      "notes": "All five named services are in the resume with production ownership context."
+    },
+    {
+      "requirement": "Container orchestration (ECS, EKS, Kubernetes)",
+      "category": "Core Technical",
+      "status": "Partial",
+      "notes": "ECS Fargate migration is strong. EKS and Kubernetes are not mentioned — a gap at the depth this role requires."
+    },
+    {
+      "requirement": "Infrastructure-as-code (Terraform, CDK)",
+      "category": "Core Technical",
+      "status": "Strong Match",
+      "notes": "Terraform across 3 environments with multi-region state management. CDK also listed."
+    },
+    {
+      "requirement": "CI/CD pipelines (GitHub Actions, ArgoCD)",
+      "category": "Core Technical",
+      "status": "Good Match",
+      "notes": "GitHub Actions ownership across 6 product teams is strong. ArgoCD is not on record."
+    },
+    {
+      "requirement": "Linux, networking fundamentals, distributed systems debugging",
+      "category": "Core Technical",
+      "status": "Good Match",
+      "notes": "Consistent production Linux use implied throughout. Not explicitly called out — worth surfacing in conversation."
+    },
+    {
+      "requirement": "Observability tooling (Datadog, Grafana, Prometheus)",
+      "category": "Tools",
+      "status": "Strong Match",
+      "notes": "Datadog APM instrumentation across 8 services with documented performance impact."
+    },
+    {
+      "requirement": "Incident response, SLOs, runbooks, postmortems",
+      "category": "Domain Knowledge",
+      "status": "Strong Match",
+      "notes": "Owns on-call rotation, led 3 SEV-1 postmortems, authored runbooks used org-wide."
+    },
+    {
+      "requirement": "Developer tooling and internal automation",
+      "category": "Domain Knowledge",
+      "status": "Strong Match",
+      "notes": "Built internal deploy CLI (Python + Click) that cut deploy time from 18 to 4 minutes — exactly the kind of toil reduction this role targets."
+    },
+    {
+      "requirement": "Security and compliance (SOC 2, HIPAA)",
+      "category": "Compliance",
+      "status": "Good Match",
+      "notes": "Led SOC 2 Type I remediation (12 findings). HIPAA not on record but the compliance posture transfers."
+    },
+    {
+      "requirement": "RFC writing, runbooks, postmortems (strong written communication)",
+      "category": "Soft Skills",
+      "status": "Good Match",
+      "notes": "Runbooks are explicitly mentioned. RFC writing not called out — frame early written work as technical documentation."
+    },
+    {
+      "requirement": "AWS Solutions Architect certification",
+      "category": "Compliance",
+      "status": "Strong Match",
+      "notes": "AWS SAA obtained in 2023. Directly satisfies the nice-to-have."
+    },
+    {
+      "requirement": "High-growth startup background",
+      "category": "Soft Skills",
+      "status": "Good Match",
+      "notes": "Greenfield Labs startup listed (4-person team, full DevOps ownership). Adds startup credibility."
+    }
+  ],
+  "gaps": [
+    {
+      "name": "Kubernetes / EKS",
+      "priority": "High",
+      "why_it_matters": "The JD lists EKS alongside ECS as a container orchestration requirement. Platform teams at this scale typically manage Kubernetes clusters — even if ECS is the current default, EKS knowledge signals you can grow into the stack.",
+      "bridge": "Spin up a local Kind or Minikube cluster. Deploy a two-service app with a Deployment, Service, and HPA. Map what you know from ECS task definitions to K8s manifests — the mental model transfers cleanly. One focused weekend puts you in a defensible position.",
+      "say_this": "I've run ECS Fargate at scale — migrated 40+ services across regions — and I understand the container orchestration layer deeply. I haven't owned an EKS cluster in production, but I've been closing that gap and the primitives map directly from what I already know."
+    },
+    {
+      "name": "ArgoCD / GitOps",
+      "priority": "Medium",
+      "why_it_matters": "ArgoCD is named in the JD alongside GitHub Actions. GitOps is the direction most platform teams are moving, and familiarity signals you can lead that transition rather than learn it on the job.",
+      "bridge": "Install ArgoCD on a local cluster (Kind works fine). Connect it to a GitHub repo and deploy an app using the App-of-Apps pattern. Two to three hours gets you hands-on enough to speak to it credibly.",
+      "say_this": "I haven't used ArgoCD in production, but I've been working through it locally. My GitHub Actions experience means I understand the CI half of GitOps well — ArgoCD is the CD complement I'm adding to the toolkit."
+    },
+    {
+      "name": "Go",
+      "priority": "Low",
+      "why_it_matters": "Go is listed as a preferred language. Platform tooling in modern infrastructure shops often runs in Go (Terraform, Prometheus, and most cloud-native tools are written in it). Not having it limits perceived ceiling.",
+      "bridge": "This is a longer-term gap — don't oversell pre-interview familiarity. Acknowledge Python as your primary with genuine Go interest. If the role ends up being Python-heavy, this is a non-issue.",
+      "say_this": "Python is my primary language and I've used it for everything from data pipelines to internal CLIs. Go is on my roadmap — I'm drawn to it specifically because of the tooling ecosystem. For this role, the patterns matter more than the language."
+    }
+  ],
+  "strengths": [
+    {
+      "skill": "Internal developer tooling",
+      "evidence": "Built a Python CLI with Click that cut average deploy time from 18 minutes to 4 minutes — directly addresses the JD's 'reduce toil and unblock delivery' requirement."
+    },
+    {
+      "skill": "AWS infrastructure at production scale",
+      "evidence": "Owns Terraform state for AWS across dev/staging/prod with ECS Fargate, Lambda, RDS, S3, and CloudWatch — covers the full named AWS surface area in the JD."
+    },
+    {
+      "skill": "Reliability and incident ownership",
+      "evidence": "Led PagerDuty integration, owns on-call rotation, reduced MTTD by 40%, authored runbooks used by 15+ engineers, led 3 SEV-1 postmortems."
+    },
+    {
+      "skill": "CI/CD pipeline ownership at org scale",
+      "evidence": "Owns GitHub Actions pipelines for 6 product teams with reusable workflow templates adopted across the org — exactly the cross-team leverage the JD describes."
+    },
+    {
+      "skill": "Compliance and security posture",
+      "evidence": "Led SOC 2 Type I remediation (12 findings resolved) and holds AWS SAA-C03 — the JD lists both SOC 2 and AWS certification as differentiators."
+    }
+  ],
+  "prep_plan": [
+    {
+      "timeframe": "Day 1",
+      "task": "Deploy a two-service app to a local Kind cluster. Write the Deployment, Service, and ConfigMap YAML from scratch — no copy-paste. Map each concept to its ECS equivalent."
+    },
+    {
+      "timeframe": "Day 2",
+      "task": "Install ArgoCD on the same cluster. Connect it to a GitHub repo. Deploy an update by pushing a commit and watching ArgoCD sync. Understand the App-of-Apps pattern."
+    },
+    {
+      "timeframe": "Days 3–4",
+      "task": "Write a 1-page RFC (markdown) for a fictional internal tool — e.g., a deployment freeze mechanism. Practice the format: context, proposal, alternatives considered, risks."
+    },
+    {
+      "timeframe": "Day 5",
+      "task": "Prep the ECS-to-EKS bridge story. Write out what you'd say in a technical screen when asked about Kubernetes experience. Practice it out loud twice."
+    },
+    {
+      "timeframe": "Days 6–7",
+      "task": "Research Apex Systems: funding status, engineering blog if any, recent job postings (signals team growth), LinkedIn for the hiring manager and likely technical interviewer."
+    },
+    {
+      "timeframe": "Day 7",
+      "task": "Prepare two STAR stories: (1) the deploy CLI reduction — lead with the business impact number first. (2) the SOC 2 remediation — frame as cross-functional ownership, not just compliance checkbox work."
+    }
+  ]
+}
