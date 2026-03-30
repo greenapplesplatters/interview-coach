@@ -1,13 +1,37 @@
-# Paste the job description here
-#
-# Replace everything below the dashed line with the full job description
-# from the job posting. Include the role title, responsibilities, requirements,
-# and any preferred qualifications. The more detail you include, the more
-# targeted your interview questions will be.
-#
-# Example: copy the entire "About the Role", "What You'll Do", and
-# "What We're Looking For" sections from the job posting.
-#
+# Replace this with the actual job posting when practicing for a real interview.
+# The AI will use whatever is here to ask targeted questions.
 # ─────────────────────────────────────────────────────────────────────────────
 
-[Paste job description here]
+Software Engineer – Platform & Infrastructure
+Apex Systems | Full-Time | Remote (US)
+
+About the Role
+
+We're looking for a Software Engineer to join our Platform team. You'll own the systems that other engineers build on — deployment pipelines, internal tooling, developer experience, and reliability. This is a high-ownership role where you'll work across the stack and directly influence how fast the company can ship.
+
+What You'll Do
+
+- Design, build, and maintain internal developer tooling and deployment automation
+- Own reliability work: incident response, SLOs, runbooks, and postmortems
+- Build and improve CI/CD pipelines (GitHub Actions, ArgoCD, or similar)
+- Work with infrastructure-as-code (Terraform, CDK) to manage cloud resources on AWS
+- Collaborate with product and application engineering teams to reduce toil and unblock delivery
+- Drive technical decisions and document architecture clearly
+
+What We're Looking For
+
+- 3–6 years of software engineering experience, with at least 2 years in platform, infrastructure, or DevOps adjacent work
+- Strong Python or Go experience; comfortable reading other languages
+- Hands-on experience with AWS services (ECS, Lambda, RDS, S3, CloudWatch)
+- Experience with container orchestration (ECS, EKS, or Kubernetes)
+- Comfort with Linux, networking fundamentals, and debugging distributed systems
+- Experience with observability tooling (Datadog, Grafana, Prometheus, or similar)
+- Strong written communication — you'll write RFCs, runbooks, and postmortems
+
+Nice to Have
+
+- Experience with security tooling or compliance frameworks (SOC 2, HIPAA)
+- Contributions to open-source infrastructure tooling
+- Background in a high-growth startup environment
+
+Compensation: $145,000 – $185,000 base + equity + benefits

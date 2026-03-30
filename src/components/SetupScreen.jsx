@@ -108,7 +108,7 @@ export default function SetupScreen({ onStart }) {
             </div>
             {(!context.jobDescription || !context.resume) && (
               <p className="setup-context-hint">
-                Paste files in <code>context/</code> for personalized questions.
+                Replace content in <code>context/</code> with your own for personalized questions.
               </p>
             )}
           </div>

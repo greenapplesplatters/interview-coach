@@ -10,8 +10,7 @@ function readContext(filename) {
     // Strip comment lines and check if there's real content
     const lines = raw.split('\n').filter(l => !l.startsWith('#'));
     const content = lines.join('\n').trim();
-    const isPlaceholder = content === '' || content === '[Paste job description here]' || content === '[Paste resume here]';
-    return isPlaceholder ? null : content;
+    return content || null;
   } catch {
     return null;
   }

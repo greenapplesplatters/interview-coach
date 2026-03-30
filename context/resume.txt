@@ -1,15 +1,52 @@
-# Paste your resume here
-#
-# Replace everything below the dashed line with your resume content.
-# Plain text is fine — no formatting needed. Include:
-#   - Work experience (company, title, dates, key responsibilities/achievements)
-#   - Skills and technologies
-#   - Education
-#   - Any certifications or notable projects
-#
-# The interviewer will use this to ask questions tailored to YOUR background —
-# probing specific experiences, tech decisions, and gaps relevant to the role.
-#
+# Replace this with your actual resume when practicing for a real interview.
+# The AI will use whatever is here to ask questions specific to your experience.
 # ─────────────────────────────────────────────────────────────────────────────
 
-[Paste resume here]
+Alex Rivera
+alex.rivera@email.com | linkedin.com/in/alexrivera | github.com/alexrivera
+
+SUMMARY
+Software engineer with 5 years of experience across backend development and platform/infrastructure work. Most recently focused on developer tooling and cloud reliability at a mid-sized SaaS company. Comfortable owning systems end-to-end — from writing the code to managing it in production.
+
+EXPERIENCE
+
+Senior Software Engineer – Platform
+CloudNova Inc. | Jan 2022 – Present
+
+- Led migration of 40+ microservices from EC2 to ECS Fargate, reducing infrastructure costs by 28%
+- Built internal deployment CLI (Python + Click) that cut average deploy time from 18 min to 4 min
+- Designed and implemented an on-call rotation system integrated with PagerDuty and Slack; reduced MTTD by 40%
+- Owned CI/CD pipelines for 6 product teams using GitHub Actions; introduced reusable workflow templates adopted across org
+- Responded to and led postmortems for 3 SEV-1 incidents; authored runbooks now used by 15+ engineers
+- Managed Terraform state for AWS infrastructure across 3 environments (dev/staging/prod)
+
+Software Engineer – Backend
+Stackline Data | Jun 2020 – Dec 2021
+
+- Built data ingestion pipelines in Python (Celery, SQS, S3) processing ~4M events/day
+- Developed REST APIs in FastAPI served via Lambda + API Gateway for internal analytics tooling
+- Added Datadog APM instrumentation across 8 services; identified and fixed 3 recurring performance bottlenecks
+- Collaborated with security team to achieve SOC 2 Type I compliance; led remediation of 12 findings
+- Mentored 2 junior engineers through code reviews and weekly 1:1s
+
+Software Engineer – Full Stack
+Greenfield Labs (startup) | Aug 2019 – May 2020
+
+- Built React + Django web app from scratch for a B2B SaaS MVP; product launched in 6 months
+- Set up AWS infrastructure (RDS, EC2, S3, CloudFront) using a mix of CDK and manual configuration
+- Handled all DevOps responsibilities in a 4-person engineering team
+
+EDUCATION
+B.S. Computer Science | University of Texas at Austin | 2019
+
+SKILLS
+Languages: Python, Go, TypeScript/JavaScript, Bash
+Cloud: AWS (ECS, Lambda, RDS, S3, CloudWatch, SQS, IAM, VPC)
+IaC: Terraform, AWS CDK
+Containers: Docker, ECS Fargate, basic Kubernetes
+Observability: Datadog, Grafana, Prometheus, PagerDuty
+CI/CD: GitHub Actions, ArgoCD
+Other: PostgreSQL, Redis, Linux, SOC 2
+
+CERTIFICATIONS
+AWS Solutions Architect – Associate (2023)
