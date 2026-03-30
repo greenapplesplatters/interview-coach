@@ -164,13 +164,21 @@ interview-coach/
 
 ---
 
-## Environment Variables
+## AI Provider
 
-| Variable | Required | Description |
-|---|---|---|
-| `GEMINI_API_KEY` | Yes | Google Gemini API key from AI Studio |
+The app works with Gemini, OpenAI, or Anthropic — your choice. Set one provider and its key:
 
-Set this in Vercel's project dashboard under **Settings → Environment Variables**. For local dev, copy `.env.example` to `.env.local`.
+| Variable | Description |
+|---|---|
+| `AI_PROVIDER` | `gemini`, `openai`, or `anthropic` (auto-detected from key if omitted) |
+| `AI_MODEL` | Optional model override (e.g. `gpt-4o`, `claude-sonnet-4-6`) |
+| `GEMINI_API_KEY` | [Google AI Studio](https://aistudio.google.com/app/apikey) |
+| `OPENAI_API_KEY` | [OpenAI Platform](https://platform.openai.com/api-keys) |
+| `ANTHROPIC_API_KEY` | [Anthropic Console](https://console.anthropic.com/) |
+
+**Default models:** `gemini-3.1-flash-lite-preview` · `gpt-4o-mini` · `claude-haiku-4-5-20251001`
+
+For local dev, copy `.env.example` to `.env.local` and fill in your key. For Vercel, set variables under **Settings → Environment Variables**.
 
 ---
 

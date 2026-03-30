@@ -1,4 +1,4 @@
-import { GoogleGenAI } from '@google/genai';
+import { generateText, getConfig } from './ai-adapter.js';
 
 const MAX_BODY_SIZE = 50000;
 
@@ -102,18 +102,15 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Job description is missing or too short.' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'Server misconfigured.' });
+  try { getConfig(); } catch (e) {
+    return res.status(500).json({ error: 'AI provider not configured. Check your .env.local file.' });
+  }
 
   try {
-    const client = new GoogleGenAI({ apiKey });
-    const result = await client.models.generateContent({
-      model: 'gemini-3.1-flash-lite-preview',
-      contents: [{ role: 'user', parts: [{ text: buildPrompt(resume.slice(0, 4000), jobDescription.slice(0, 4000)) }] }],
-      config: { maxOutputTokens: 2000 },
+    const raw = await generateText({
+      prompt: buildPrompt(resume.slice(0, 4000), jobDescription.slice(0, 4000)),
+      maxTokens: 2000,
     });
-
-    const raw = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     // Strip markdown code fences if model wraps the JSON
     const cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();

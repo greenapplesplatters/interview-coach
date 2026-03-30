@@ -1,4 +1,4 @@
-import { GoogleGenAI } from '@google/genai';
+import { streamChat, getConfig } from './ai-adapter.js';
 
 const MAX_INPUT_LENGTH = 500;
 const MAX_HISTORY_LENGTH = 80;
@@ -237,8 +237,9 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Too many requests. Try again in a minute.' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return res.status(500).json({ error: 'Server misconfigured.' });
+  try { getConfig(); } catch (e) {
+    return res.status(500).json({ error: 'AI provider not configured. Check your .env.local file.' });
+  }
 
   const bodyStr = JSON.stringify(req.body);
   if (bodyStr.length > MAX_BODY_SIZE) return res.status(413).json({ error: 'Request too large.' });
@@ -295,12 +296,13 @@ export default async function handler(req, res) {
     }
   }
 
-  const contents = history.length > 0
+  // Wrap user messages in delimiters (injection defense) and normalize to provider-agnostic format
+  const normalizedHistory = history.length > 0
     ? history.map(m => ({
-        role: m.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: m.role === 'user' ? `[STUDENT_ANSWER_START]\n${m.content}\n[STUDENT_ANSWER_END]` : m.content }],
+        role: m.role,
+        content: m.role === 'user' ? `[STUDENT_ANSWER_START]\n${m.content}\n[STUDENT_ANSWER_END]` : m.content,
       }))
-    : [{ role: 'user', parts: [{ text: 'Begin.' }] }];
+    : [];
 
   const trimmedRole = role.trim();
   const trimmedCompany = (company || '').trim();
@@ -326,27 +328,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const client = new GoogleGenAI({ apiKey });
-
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache, no-store');
     res.setHeader('Connection', 'keep-alive');
 
-    const stream = await client.models.generateContentStream({
-      model: 'gemini-3.1-flash-lite-preview',
-      config: {
-        systemInstruction: systemPrompt,
-        maxOutputTokens: 400,
-      },
-      contents,
-    });
-
-    for await (const chunk of stream) {
-      const text = chunk.text ?? '';
-      if (text) {
-        res.write(`data: ${JSON.stringify({ text })}\n\n`);
-      }
-    }
+    await streamChat({ systemPrompt, history: normalizedHistory, res, maxTokens: 400 });
 
     res.write('data: [DONE]\n\n');
     res.end();

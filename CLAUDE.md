@@ -12,12 +12,26 @@ A focused AI interview practice app. The user picks a company and interview styl
 |---|---|
 | Frontend | React 19, plain CSS (no frameworks) |
 | Build | Vite 8 |
-| Backend | Vercel Serverless Functions (Node.js ESM) |
-| AI | Google Gemini via `@google/genai` |
+| Backend | Vercel Serverless Functions / Express (Node.js ESM) |
+| AI | Model-agnostic — Gemini, OpenAI, or Anthropic via `api/ai-adapter.js` |
 | Storage | `localStorage` only |
-| Deployment | Vercel |
+| Deployment | Vercel or local Express server |
 
-**Do NOT switch to the Anthropic SDK or any Claude model inside this app.** Gemini is intentional.
+## AI Provider
+
+The app is model-agnostic. Provider is controlled by `.env.local`:
+
+```
+AI_PROVIDER=gemini | openai | anthropic   # auto-detected from key if omitted
+AI_MODEL=<model-id>                        # optional override
+GEMINI_API_KEY=...
+OPENAI_API_KEY=...
+ANTHROPIC_API_KEY=...
+```
+
+Default models: `gemini-3.1-flash-lite-preview` / `gpt-4o-mini` / `claude-haiku-4-5-20251001`
+
+All AI calls route through `api/ai-adapter.js`. To add a new provider, add a case in that file — no changes to `interview.js` or `analyze.js` needed.
 
 ---
 
