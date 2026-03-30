@@ -9,6 +9,7 @@ Built with React 19, Vite, Vercel Serverless Functions, and Google Gemini.
 ## Features
 
 - **4 interview styles** — Behavioral (STAR), Technical, HR Screen, Stress Test
+- **Resume + JD context** — drop your resume and the job posting into `context/` and the AI asks questions tailored to your actual background and the role requirements
 - **Coaching mode** — click "💡 Coach me on that" at any point to get a breakdown of what the interviewer is looking for and how to structure your answer
 - **Session persistence** — sessions save to localStorage and can be resumed across page reloads (7-day expiry)
 - **Streaming responses** — AI responses stream token-by-token like a real chat
@@ -110,12 +111,34 @@ Then it returns to the interview and invites you to try again.
 
 ---
 
+## Personalizing with Your Resume and Job Description
+
+The app ships with demo content so it works out of the box. To practice for a real interview, replace the files in the `context/` directory:
+
+```
+context/
+├── job_description.txt   ← paste the job posting here
+└── resume.txt            ← paste your resume here
+```
+
+Open each file in a text editor, delete everything below the dashed line, and paste in your content. Plain text is fine — no formatting needed.
+
+The AI will use your resume and the job description to ask targeted questions about **your specific experience** and the **requirements of the actual role**. Without these files, it falls back to generic role-based questions.
+
+The setup screen shows a status indicator confirming which files are loaded before you start the interview.
+
+---
+
 ## Project Structure
 
 ```
 interview-coach/
 ├── api/
-│   └── interview.js        # Vercel serverless function — AI streaming endpoint
+│   ├── interview.js        # Vercel serverless function — AI streaming endpoint
+│   └── load-context.js     # Reads context/ files and returns them to the frontend
+├── context/
+│   ├── job_description.txt # Paste the job posting here
+│   └── resume.txt          # Paste your resume here
 ├── src/
 │   ├── App.jsx             # Top-level state: setup → interview
 │   ├── main.jsx            # React entry point
