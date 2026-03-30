@@ -243,7 +243,7 @@ export default async function handler(req, res) {
   const bodyStr = JSON.stringify(req.body);
   if (bodyStr.length > MAX_BODY_SIZE) return res.status(413).json({ error: 'Request too large.' });
 
-  const { role, company, style, history } = req.body;
+  const { role, company, style, history, context } = req.body;
 
   if (!role || typeof role !== 'string' || role.length > 200) {
     return res.status(400).json({ error: 'Invalid role.' });
@@ -310,6 +310,20 @@ export default async function handler(req, res) {
   else if (style === 'technical') systemPrompt = buildTechnicalPrompt(trimmedRole, trimmedCompany);
   else if (style === 'hr') systemPrompt = buildHRPrompt(trimmedRole, trimmedCompany);
   else systemPrompt = buildStressPrompt(trimmedRole, trimmedCompany);
+
+  // Inject candidate context if provided
+  if (context && typeof context === 'object') {
+    const jd = typeof context.jobDescription === 'string' ? context.jobDescription.slice(0, 3000).trim() : '';
+    const resume = typeof context.resume === 'string' ? context.resume.slice(0, 3000).trim() : '';
+    if (jd || resume) {
+      const contextBlock = [
+        'CANDIDATE CONTEXT (use this to ask targeted questions about their specific experience and the role requirements):',
+        jd ? `JOB DESCRIPTION:\n${jd}` : '',
+        resume ? `CANDIDATE RESUME:\n${resume}` : '',
+      ].filter(Boolean).join('\n\n');
+      systemPrompt = contextBlock + '\n\n' + systemPrompt;
+    }
+  }
 
   try {
     const client = new GoogleGenAI({ apiKey });

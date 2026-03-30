@@ -1,0 +1,15 @@
+# Paste your resume here
+#
+# Replace everything below the dashed line with your resume content.
+# Plain text is fine — no formatting needed. Include:
+#   - Work experience (company, title, dates, key responsibilities/achievements)
+#   - Skills and technologies
+#   - Education
+#   - Any certifications or notable projects
+#
+# The interviewer will use this to ask questions tailored to YOUR background —
+# probing specific experiences, tech decisions, and gaps relevant to the role.
+#
+# ─────────────────────────────────────────────────────────────────────────────
+
+[Paste resume here]

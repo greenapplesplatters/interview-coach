@@ -1,0 +1,13 @@
+# Paste the job description here
+#
+# Replace everything below the dashed line with the full job description
+# from the job posting. Include the role title, responsibilities, requirements,
+# and any preferred qualifications. The more detail you include, the more
+# targeted your interview questions will be.
+#
+# Example: copy the entire "About the Role", "What You'll Do", and
+# "What We're Looking For" sections from the job posting.
+#
+# ─────────────────────────────────────────────────────────────────────────────
+
+[Paste job description here]

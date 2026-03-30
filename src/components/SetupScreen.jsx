@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SetupScreen.css';
 
 // ── Customize these companies for your use case ───────────────────────────────
@@ -65,6 +65,14 @@ const STYLES = [
 export default function SetupScreen({ onStart }) {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [style, setStyle] = useState(null);
+  const [context, setContext] = useState(null); // { jobDescription, resume }
+
+  useEffect(() => {
+    fetch('/api/load-context')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setContext(data); })
+      .catch(() => {});
+  }, []);
 
   const activeStyle = STYLES.find(s => s.id === style);
 
@@ -74,6 +82,7 @@ export default function SetupScreen({ onStart }) {
       role: selectedCompany.role,
       company: selectedCompany.company,
       style,
+      context,
     });
   }
 
@@ -84,6 +93,26 @@ export default function SetupScreen({ onStart }) {
           <h1 className="setup-title">Interview Coach</h1>
           <p className="setup-tagline">AI-powered interview practice. Real questions. Real pressure.</p>
         </div>
+
+        {/* Context status banner */}
+        {context !== null && (
+          <div className="setup-context-banner">
+            <span className="setup-context-label">Interview context</span>
+            <div className="setup-context-items">
+              <span className={`setup-context-item ${context.jobDescription ? 'setup-context-loaded' : 'setup-context-missing'}`}>
+                {context.jobDescription ? '✓ Job description' : '⚠ No job description'}
+              </span>
+              <span className={`setup-context-item ${context.resume ? 'setup-context-loaded' : 'setup-context-missing'}`}>
+                {context.resume ? '✓ Resume' : '⚠ No resume'}
+              </span>
+            </div>
+            {(!context.jobDescription || !context.resume) && (
+              <p className="setup-context-hint">
+                Paste files in <code>context/</code> for personalized questions.
+              </p>
+            )}
+          </div>
+        )}
 
         {/* Step 1: Company */}
         <div className="setup-field">

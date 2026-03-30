@@ -96,7 +96,7 @@ const STYLE_META = {
   stress:     { icon: '😈', label: 'Stress Test', avatarLabel: 'S', color: '#ef4444' },
 };
 
-export default function InterviewChat({ role, company, style, onExit }) {
+export default function InterviewChat({ role, company, style, context, onExit }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [streaming, setStreaming] = useState(false);
@@ -143,7 +143,7 @@ export default function InterviewChat({ role, company, style, onExit }) {
       const response = await fetch('/api/interview', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ role, company, style, history }),
+        body: JSON.stringify({ role, company, style, history, context }),
       });
 
       if (!response.ok) {

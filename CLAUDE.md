@@ -26,7 +26,11 @@ A focused AI interview practice app. The user picks a company and interview styl
 ```
 interview-coach/
 ├── api/
-│   └── interview.js        # Serverless function — all AI logic lives here
+│   ├── interview.js        # Serverless function — all AI logic lives here
+│   └── load-context.js     # Reads context/ files, returns JSON to frontend
+├── context/
+│   ├── job_description.txt # Paste the job posting here
+│   └── resume.txt          # Paste your resume here
 ├── src/
 │   ├── App.jsx             # Two states: 'setup' → 'interview'
 │   ├── main.jsx            # React entry point
@@ -148,6 +152,32 @@ This is prompt-driven — no separate API endpoint needed.
 
 ---
 
+## Resume + Job Description Context
+
+Drop files into `context/` to give the AI your background and the job requirements. The interviewer will ask targeted questions based on your actual experience and the role spec.
+
+```
+context/
+├── job_description.txt   ← paste the job posting here
+└── resume.txt            ← paste your resume here
+```
+
+### How it works
+
+1. `api/load-context.js` (GET `/api/load-context`) reads both files at startup
+2. `SetupScreen.jsx` fetches this on mount and shows a status banner (✓ loaded / ⚠ missing)
+3. Context is passed from `SetupScreen` → `App` → `InterviewChat` → `api/interview.js`
+4. `api/interview.js` prepends a `CANDIDATE CONTEXT` block to the system prompt when present, instructing the AI to draw on the JD and resume
+
+### Rules
+
+- Content is truncated to 3000 chars each before injection (prevents prompt bloat)
+- Files with only the placeholder text (`[Paste job description here]`) are treated as empty — no context injected
+- Neither file is required — the AI falls back to generic role-based questions when absent
+- For local dev: paste content, run `vercel dev`. For Vercel deployment: commit the files to the repo.
+
+---
+
 ## Common Tasks
 
 | Task | Where to edit |
@@ -156,6 +186,7 @@ This is prompt-driven — no separate API endpoint needed.
 | Change interview style names/icons | `src/components/SetupScreen.jsx` → `STYLES` array + `src/components/InterviewChat.jsx` → `STYLE_META` |
 | Edit what the AI asks | `api/interview.js` → the relevant `build*Prompt()` function |
 | Edit coaching instructions | `api/interview.js` → `COACHING MODE` block in each prompt |
+| Add/update resume or JD | `context/job_description.txt` and `context/resume.txt` |
 | Change session expiry (default 7 days) | `InterviewChat.jsx` → `SESSION_MAX_AGE` |
 | Change max message history | `InterviewChat.jsx` → `SESSION_MAX_MESSAGES` and `api/interview.js` → `MAX_HISTORY_LENGTH` |
 | Add a custom domain to CORS | `api/interview.js` → `ALLOWED_ORIGINS` |
