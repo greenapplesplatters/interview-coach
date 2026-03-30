@@ -18,6 +18,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import interviewHandler from './api/interview.js';
 import loadContextHandler from './api/load-context.js';
+import analyzeHandler from './api/analyze.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -33,6 +34,7 @@ app.set('trust proxy', 1);
 // ── API routes ────────────────────────────────────────────────────────────────
 app.get('/api/load-context', loadContextHandler);
 app.post('/api/interview', interviewHandler);
+app.post('/api/analyze', analyzeHandler);
 
 // ── Frontend ──────────────────────────────────────────────────────────────────
 // In production mode (npm start) serve the Vite build output.

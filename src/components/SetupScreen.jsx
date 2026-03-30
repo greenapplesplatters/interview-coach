@@ -62,7 +62,7 @@ const STYLES = [
   },
 ];
 
-export default function SetupScreen({ onStart }) {
+export default function SetupScreen({ onStart, onAnalyze }) {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [style, setStyle] = useState(null);
   const [context, setContext] = useState(null); // { jobDescription, resume }
@@ -97,14 +97,20 @@ export default function SetupScreen({ onStart }) {
         {/* Context status banner */}
         {context !== null && (
           <div className="setup-context-banner">
-            <span className="setup-context-label">Interview context</span>
-            <div className="setup-context-items">
-              <span className={`setup-context-item ${context.jobDescription ? 'setup-context-loaded' : 'setup-context-missing'}`}>
-                {context.jobDescription ? '✓ Job description' : '⚠ No job description'}
-              </span>
-              <span className={`setup-context-item ${context.resume ? 'setup-context-loaded' : 'setup-context-missing'}`}>
-                {context.resume ? '✓ Resume' : '⚠ No resume'}
-              </span>
+            <div className="setup-context-top">
+              <div className="setup-context-items">
+                <span className={`setup-context-item ${context.jobDescription ? 'setup-context-loaded' : 'setup-context-missing'}`}>
+                  {context.jobDescription ? '✓ Job description' : '⚠ No job description'}
+                </span>
+                <span className={`setup-context-item ${context.resume ? 'setup-context-loaded' : 'setup-context-missing'}`}>
+                  {context.resume ? '✓ Resume' : '⚠ No resume'}
+                </span>
+              </div>
+              {context.jobDescription && context.resume && (
+                <button className="setup-analyze-btn" onClick={onAnalyze}>
+                  📊 Analyze my fit
+                </button>
+              )}
             </div>
             {(!context.jobDescription || !context.resume) && (
               <p className="setup-context-hint">
