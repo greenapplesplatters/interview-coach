@@ -23,43 +23,49 @@ Built with React 19, Vite, Vercel Serverless Functions, and Google Gemini.
 
 1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
 2. Create a new API key
-3. Copy it — you'll need it in the next step
+3. Copy it — you'll need it below
 
-### 2. Deploy to Vercel (recommended)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-1. Fork or clone this repo and push it to GitHub
-2. Import the repo into [Vercel](https://vercel.com)
-3. During setup, add an environment variable:
-   - **Name:** `GEMINI_API_KEY`
-   - **Value:** your API key from step 1
-4. Deploy — Vercel runs `npm install` and `npm run build` automatically
-
-That's it. No other configuration needed.
-
-### 3. Local Development
+### 2. Set Up
 
 ```bash
-# Install dependencies
+git clone https://github.com/greenapplesplatters/interview-coach.git
+cd interview-coach
 npm install
 
-# Add your API key
 cp .env.example .env.local
-# Edit .env.local and set GEMINI_API_KEY=your_key_here
-
-# Start the dev server
-npm run dev
+# Open .env.local and set GEMINI_API_KEY=your_key_here
 ```
 
-The app runs at `http://localhost:5173`. API calls proxy to `http://localhost:3000` via the Vite dev server config, but **local API execution requires the Vercel CLI**:
+### 3. Run Locally
+
+**Option A — Standalone (simplest):**
+
+Builds the app once and serves everything from a single local server. Open the URL it prints and you're in.
 
 ```bash
-npm install -g vercel
-vercel dev
+npm start
+# → http://localhost:3000
 ```
 
-Or just deploy to Vercel and use that URL for testing — it's faster.
+**Option B — Dev mode (hot reload):**
+
+Runs the API server and Vite dev server side-by-side. Use this if you're modifying the code.
+
+```bash
+npm run dev
+# → http://localhost:5173
+```
+
+### 4. Deploy to Vercel (optional)
+
+If you want to share the app or access it from other devices:
+
+1. Push the repo to GitHub
+2. Import it into [Vercel](https://vercel.com)
+3. Add `GEMINI_API_KEY` under **Settings → Environment Variables**
+4. Deploy — done
+
+The `api/` folder is automatically detected as serverless functions. `server.js` is ignored by Vercel.
 
 ---
 
@@ -134,8 +140,8 @@ The setup screen shows a status indicator confirming which files are loaded befo
 ```
 interview-coach/
 ├── api/
-│   ├── interview.js        # Vercel serverless function — AI streaming endpoint
-│   └── load-context.js     # Reads context/ files and returns them to the frontend
+│   ├── interview.js        # AI streaming handler (used by both server.js and Vercel)
+│   └── load-context.js     # Reads context/ files (used by both server.js and Vercel)
 ├── context/
 │   ├── job_description.txt # Paste the job posting here
 │   └── resume.txt          # Paste your resume here
@@ -148,10 +154,11 @@ interview-coach/
 │       ├── SetupScreen.css
 │       ├── InterviewChat.jsx # Chat UI, session management, streaming
 │       └── InterviewChat.css
+├── server.js               # Local Express server (npm start / npm run dev)
 ├── index.html
 ├── package.json
 ├── vite.config.js
-├── vercel.json
+├── vercel.json             # Vercel deployment config (ignored when running locally)
 └── .env.example
 ```
 

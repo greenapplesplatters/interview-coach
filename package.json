@@ -4,18 +4,23 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently -n api,vite -c blue,green \"node server.js\" \"vite\"",
     "build": "vite build",
+    "start": "npm run build && cross-env NODE_ENV=production node server.js",
     "preview": "vite preview"
   },
   "dependencies": {
     "@google/genai": "^1.46.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
     "lucide-react": "^0.577.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
     "terser": "^5.46.1",
     "vite": "^8.0.0"
   }
